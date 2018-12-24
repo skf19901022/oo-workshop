@@ -35,4 +35,15 @@ class ParkingLotTest {
     assertEquals(car, parkingLot.getCar(ticket));
   }
 
+  @Test
+  void shouldReturnCarWhenGetCarGivenParingLotTicketAndThereAreOtherCarsInTheLot() {
+    Car car = new Car("1");
+    Car car2 = new Car("2");
+    ParkingLot parkingLot = new ParkingLot(2);
+
+    Ticket ticket = parkingLot.parking(car);
+    Ticket ticket2 = parkingLot.parking(car2);
+    assertEquals(car, parkingLot.getCar(ticket));
+    assertEquals(car2, parkingLot.getCar(ticket2));
+  }
 }
