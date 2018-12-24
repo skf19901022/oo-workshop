@@ -1,36 +1,34 @@
 package com.thoughtworks.workshop.parkinglot;
 
-import com.thoughtworks.workshop.parkinglot.exception.ParkingException;
-import com.thoughtworks.workshop.parkinglot.exception.TicketException;
+import com.thoughtworks.workshop.parkinglot.exception.InvalidTicketException;
+import com.thoughtworks.workshop.parkinglot.exception.ParkingLotIsFullException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLot {
 
-  private int availableSeatCount;
+  private int totalSpace;
 
-  Map<String, Car> parkedCars;
+  private Map<Ticket, Car> parkedCars;
 
-  public ParkingLot(int seatCount) {
-    this.availableSeatCount = seatCount;
-    parkedCars = new HashMap<>(seatCount);
+  public ParkingLot(int totalSpace) {
+    this.totalSpace = totalSpace;
+    parkedCars = new HashMap<>();
   }
 
-  public Ticket parking(Car car) {
-    if (availableSeatCount == 0) {
-      throw new ParkingException();
+  public Ticket pack(Car car) {
+    if (totalSpace >= parkedCars.size()) {
+      throw new ParkingLotIsFullException();
     }
-    String carInfo = car.getInfo();
-    parkedCars.put(carInfo, car);
-    availableSeatCount--;
-    return new Ticket(carInfo);
+    Ticket ticket = new Ticket();
+    parkedCars.put(ticket, car);
+    return ticket;
   }
 
-  public Car getCar(Ticket ticket) {
-    if (parkedCars.containsKey(ticket.getCarInfo())) {
-      availableSeatCount++;
-      return parkedCars.remove(ticket.getCarInfo());
+  public Car pick(Ticket ticket) {
+    if (parkedCars.containsKey(ticket)) {
+      return parkedCars.remove(ticket);
     }
-    throw new TicketException();
+    throw new InvalidTicketException();
   }
 }

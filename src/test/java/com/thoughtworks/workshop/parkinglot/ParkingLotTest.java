@@ -1,71 +1,73 @@
 package com.thoughtworks.workshop.parkinglot;
 
 
-import com.thoughtworks.workshop.parkinglot.exception.ParkingException;
-import com.thoughtworks.workshop.parkinglot.exception.TicketException;
+import com.thoughtworks.workshop.parkinglot.exception.InvalidTicketException;
+import com.thoughtworks.workshop.parkinglot.exception.ParkingLotIsFullException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingLotTest {
 
   @Test
   void shouldReturnTicketWhenParkingCarGivenParkingLotHaveAvailableSeat() {
-    Car car = new Car("1");
+    Car car = new Car();
     ParkingLot parkingLot = new ParkingLot(1);
 
-    assertEquals("1", parkingLot.parking(car).getCarInfo());
+    assertNotNull(parkingLot.pack(car));
   }
 
   @Test
   void shouldReturnExceptionWhenParkingCarGivenParkingLotIsFull() {
-    Car car = new Car("1");
-    ParkingLot parkingLot = new ParkingLot(0);
+    Car car = new Car();
+    ParkingLot parkingLot = new ParkingLot(1);
+    parkingLot.pack(car);
 
-    assertThrows(ParkingException.class, () -> parkingLot.parking(car));
+    assertThrows(ParkingLotIsFullException.class, () -> parkingLot.pack(new Car()));
   }
 
   @Test
   void shouldReturnCarWhenGetCarGivenParingLotTicketAndOnlyMyCarInTheLot() {
-    Car car = new Car("1");
+    Car car = new Car();
     ParkingLot parkingLot = new ParkingLot(1);
 
-    Ticket ticket = parkingLot.parking(car);
-    assertEquals(car, parkingLot.getCar(ticket));
+    Ticket ticket = parkingLot.pack(car);
+    assertEquals(car, parkingLot.pick(ticket));
   }
 
   @Test
   void shouldReturnCarWhenGetCarGivenParingLotTicketAndThereAreOtherCarsInTheLot() {
-    Car car = new Car("1");
-    Car car2 = new Car("2");
+    Car myCar = new Car();
+    Car someOnesCar = new Car();
     ParkingLot parkingLot = new ParkingLot(2);
 
-    Ticket ticket = parkingLot.parking(car);
-    Ticket ticket2 = parkingLot.parking(car2);
-    assertEquals(car, parkingLot.getCar(ticket));
-    assertEquals(car2, parkingLot.getCar(ticket2));
+    Ticket ticket = parkingLot.pack(myCar);
+    Ticket ticket2 = parkingLot.pack(someOnesCar);
+    assertEquals(myCar, parkingLot.pick(ticket));
+    assertEquals(someOnesCar, parkingLot.pick(ticket2));
   }
 
   @Test
   void shouldReturnExceptionWhenGetCarGivenInvalidParingLotTicket() {
-    Car car = new Car("1");
+    Car car = new Car();
     ParkingLot parkingLot = new ParkingLot(2);
 
-    Ticket ticket = parkingLot.parking(car);
-    parkingLot.getCar(ticket);
+    Ticket ticket = parkingLot.pack(car);
+    parkingLot.pick(ticket);
 
-    assertThrows(TicketException.class, () -> parkingLot.getCar(ticket));
+    assertThrows(InvalidTicketException.class, () -> parkingLot.pick(ticket));
   }
 
   @Test
   void shouldReturnTicketWhenParkingCarGivenParkingLotIsFullAndSomeOneGetCar() {
-    Car car = new Car("1");
+    Car car = new Car();
     ParkingLot parkingLot = new ParkingLot(1);
 
-    Ticket ticket = parkingLot.parking(car);
-    parkingLot.getCar(ticket);
+    Ticket ticket = parkingLot.pack(car);
+    parkingLot.pick(ticket);
 
-    assertEquals("1", parkingLot.parking(car).getCarInfo());
+    assertNotNull(parkingLot.pack(car));
   }
 }
