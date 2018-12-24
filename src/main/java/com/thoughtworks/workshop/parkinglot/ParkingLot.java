@@ -1,6 +1,7 @@
 package com.thoughtworks.workshop.parkinglot;
 
 import com.thoughtworks.workshop.parkinglot.exception.ParkingException;
+import com.thoughtworks.workshop.parkinglot.exception.TicketException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +27,9 @@ public class ParkingLot {
   }
 
   public Car getCar(Ticket ticket) {
-    return parkedCars.get(ticket.getCarInfo());
+    if (parkedCars.containsKey(ticket.getCarInfo())) {
+      return parkedCars.remove(ticket.getCarInfo());
+    }
+    throw new TicketException();
   }
 }
