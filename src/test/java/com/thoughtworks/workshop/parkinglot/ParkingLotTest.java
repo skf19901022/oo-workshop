@@ -5,6 +5,7 @@ import com.thoughtworks.workshop.parkinglot.exception.ParkingException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingLotTest {
@@ -24,4 +25,14 @@ class ParkingLotTest {
 
     assertThrows(ParkingException.class, () -> parkingLot.parking(car));
   }
+
+  @Test
+  void shouldReturnCarWhenGetCarGivenParingLotTicketAndOnlyMyCarInTheLot() {
+    Car car = new Car("1");
+    ParkingLot parkingLot = new ParkingLot(1);
+
+    Ticket ticket = parkingLot.parking(car);
+    assertEquals(car, parkingLot.getCar(ticket));
+  }
+
 }
