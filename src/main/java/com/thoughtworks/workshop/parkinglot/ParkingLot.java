@@ -28,6 +28,7 @@ public class ParkingLot {
 
   public Car getCar(Ticket ticket) {
     if (parkedCars.containsKey(ticket.getCarInfo())) {
+      availableSeatCount++;
       return parkedCars.remove(ticket.getCarInfo());
     }
     throw new TicketException();

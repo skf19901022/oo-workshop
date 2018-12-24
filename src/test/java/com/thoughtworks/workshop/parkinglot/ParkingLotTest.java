@@ -57,4 +57,15 @@ class ParkingLotTest {
 
     assertThrows(TicketException.class, () -> parkingLot.getCar(ticket));
   }
+
+  @Test
+  void shouldReturnTicketWhenParkingCarGivenParkingLotIsFullAndSomeOneGetCar() {
+    Car car = new Car("1");
+    ParkingLot parkingLot = new ParkingLot(1);
+
+    Ticket ticket = parkingLot.parking(car);
+    parkingLot.getCar(ticket);
+
+    assertEquals("1", parkingLot.parking(car).getCarInfo());
+  }
 }
