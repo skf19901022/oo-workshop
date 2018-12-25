@@ -3,6 +3,7 @@ package com.thoughtworks.workshop.parkingboy;
 import com.thoughtworks.workshop.parkinglot.Car;
 import com.thoughtworks.workshop.parkinglot.ParkingLot;
 import com.thoughtworks.workshop.parkinglot.Ticket;
+import com.thoughtworks.workshop.parkinglot.exception.ParkingLotIsFullException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class ParkingBoy {
         return parkingLot.park(car);
       }
     }
-    return null;
+    throw new ParkingLotIsFullException();
   }
 
   public void manage(ParkingLot parkingLot) {
