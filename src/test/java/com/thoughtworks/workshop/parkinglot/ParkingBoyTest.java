@@ -10,7 +10,8 @@ class ParkingBoyTest {
   @Test
   void shouldReturnTicketWhenParkingBoyParkGivenParkingLotIsAvailable() {
     ParkingLot parkingLot = new ParkingLot(1);
-    ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+    ParkingBoy parkingBoy = new ParkingBoy();
+    parkingBoy.manage(parkingLot);
     Car car = new Car();
 
     assertNotNull(parkingBoy.park(car));
