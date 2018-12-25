@@ -27,4 +27,13 @@ public class ParkingBoy {
   public void manage(ParkingLot parkingLot) {
     parkingLots.add(parkingLot);
   }
+
+  public Car pick(Ticket ticket) {
+    for (ParkingLot parkingLot: parkingLots){
+      if( parkingLot.searchCarByTicket(ticket)){
+        return parkingLot.pick(ticket);
+      }
+    }
+    return null;
+  }
 }

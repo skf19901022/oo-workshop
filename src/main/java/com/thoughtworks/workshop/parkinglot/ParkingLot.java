@@ -35,4 +35,8 @@ public class ParkingLot {
   public boolean isNotFull() {
     return totalSpace > parkedCars.size();
   }
+
+  public boolean searchCarByTicket(Ticket ticket) {
+    return parkedCars.containsKey(ticket);
+  }
 }
