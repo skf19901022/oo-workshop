@@ -1,9 +1,11 @@
 package com.thoughtworks.workshop.parkinglot;
 
 import com.thoughtworks.workshop.parkingboy.ParkingBoy;
+import com.thoughtworks.workshop.parkinglot.exception.ParkingLotIsFullException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingBoyTest {
 
@@ -30,5 +32,18 @@ class ParkingBoyTest {
 
     Car porsche = new Car();
     assertNotNull(parkingBoy.park(porsche));
+  }
+
+  @Test
+  void shouldThrowParkingFailedExceptionWhenParkingBoyParkTwoCarsGivenThereIsOnlyOnePlace() {
+    ParkingLot parkingLot = new ParkingLot(1);
+    ParkingBoy parkingBoy = new ParkingBoy();
+    parkingBoy.manage(parkingLot);
+
+    Car toyota = new Car();
+    assertNotNull(parkingBoy.park(toyota));
+
+    Car porsche = new Car();
+    assertThrows(ParkingLotIsFullException.class, () -> parkingBoy.park(porsche));
   }
 }
