@@ -1,6 +1,7 @@
 package com.thoughtworks.workshop.parkinglot;
 
 import com.thoughtworks.workshop.parkingboy.ParkingBoy;
+import com.thoughtworks.workshop.parkinglot.exception.InvalidTicketException;
 import com.thoughtworks.workshop.parkinglot.exception.ParkingLotIsFullException;
 import org.junit.jupiter.api.Test;
 
@@ -58,5 +59,14 @@ class ParkingBoyTest {
     Ticket ticket = parkingBoy.park(toyota);
 
     assertSame(toyota, parkingBoy.pick(ticket));
+  }
+
+  @Test
+  void shouldThrowPickFailedExceptionWhenPickCarGivenInvalidTicketToParkingBoy() {
+    ParkingLot parkingLot = new ParkingLot(1);
+    ParkingBoy parkingBoy = new ParkingBoy();
+    parkingBoy.manage(parkingLot);
+
+    assertThrows(InvalidTicketException.class, () -> parkingBoy.pick(new Ticket()));
   }
 }
