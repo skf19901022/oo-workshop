@@ -16,7 +16,7 @@ public class ParkingLot {
     parkedCars = new HashMap<>();
   }
 
-  public Ticket pack(Car car) {
+  public Ticket park(Car car) {
     if (totalSpace >= parkedCars.size()) {
       throw new ParkingLotIsFullException();
     }

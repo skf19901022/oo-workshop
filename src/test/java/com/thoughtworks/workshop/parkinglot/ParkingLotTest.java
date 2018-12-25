@@ -16,16 +16,16 @@ class ParkingLotTest {
     Car car = new Car();
     ParkingLot parkingLot = new ParkingLot(1);
 
-    assertNotNull(parkingLot.pack(car));
+    assertNotNull(parkingLot.park(car));
   }
 
   @Test
   void shouldReturnExceptionWhenParkingCarGivenParkingLotIsFull() {
     Car car = new Car();
     ParkingLot parkingLot = new ParkingLot(1);
-    parkingLot.pack(car);
+    parkingLot.park(car);
 
-    assertThrows(ParkingLotIsFullException.class, () -> parkingLot.pack(new Car()));
+    assertThrows(ParkingLotIsFullException.class, () -> parkingLot.park(new Car()));
   }
 
   @Test
@@ -33,7 +33,7 @@ class ParkingLotTest {
     Car car = new Car();
     ParkingLot parkingLot = new ParkingLot(1);
 
-    Ticket ticket = parkingLot.pack(car);
+    Ticket ticket = parkingLot.park(car);
     assertEquals(car, parkingLot.pick(ticket));
   }
 
@@ -43,8 +43,8 @@ class ParkingLotTest {
     Car someOnesCar = new Car();
     ParkingLot parkingLot = new ParkingLot(2);
 
-    Ticket ticket = parkingLot.pack(myCar);
-    Ticket ticket2 = parkingLot.pack(someOnesCar);
+    Ticket ticket = parkingLot.park(myCar);
+    Ticket ticket2 = parkingLot.park(someOnesCar);
     assertEquals(myCar, parkingLot.pick(ticket));
     assertEquals(someOnesCar, parkingLot.pick(ticket2));
   }
@@ -54,7 +54,7 @@ class ParkingLotTest {
     Car car = new Car();
     ParkingLot parkingLot = new ParkingLot(2);
 
-    Ticket ticket = parkingLot.pack(car);
+    Ticket ticket = parkingLot.park(car);
     parkingLot.pick(ticket);
 
     assertThrows(InvalidTicketException.class, () -> parkingLot.pick(ticket));
@@ -65,9 +65,9 @@ class ParkingLotTest {
     Car car = new Car();
     ParkingLot parkingLot = new ParkingLot(1);
 
-    Ticket ticket = parkingLot.pack(car);
+    Ticket ticket = parkingLot.park(car);
     parkingLot.pick(ticket);
 
-    assertNotNull(parkingLot.pack(car));
+    assertNotNull(parkingLot.park(car));
   }
 }
