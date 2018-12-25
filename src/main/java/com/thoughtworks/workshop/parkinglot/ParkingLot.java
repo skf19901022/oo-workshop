@@ -17,7 +17,7 @@ public class ParkingLot {
   }
 
   public Ticket park(Car car) {
-    if (totalSpace >= parkedCars.size()) {
+    if (totalSpace <= parkedCars.size()) {
       throw new ParkingLotIsFullException();
     }
     Ticket ticket = new Ticket();
