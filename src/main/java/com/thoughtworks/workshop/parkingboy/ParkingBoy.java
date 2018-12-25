@@ -30,8 +30,8 @@ public class ParkingBoy {
   }
 
   public Car pick(Ticket ticket) {
-    for (ParkingLot parkingLot: parkingLots){
-      if( parkingLot.searchCarByTicket(ticket)){
+    for (ParkingLot parkingLot : parkingLots) {
+      if (parkingLot.searchCarByTicket(ticket)) {
         return parkingLot.pick(ticket);
       }
     }

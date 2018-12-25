@@ -69,4 +69,17 @@ class ParkingBoyTest {
 
     assertThrows(InvalidTicketException.class, () -> parkingBoy.pick(new Ticket()));
   }
+
+  @Test
+  void shouldReturnTicketWhenParkCarGivenLotIsFullAndPickACarAndParkCar() {
+    ParkingLot parkingLot = new ParkingLot(1);
+    ParkingBoy parkingBoy = new ParkingBoy();
+    parkingBoy.manage(parkingLot);
+
+    Car toyota = new Car();
+    Ticket ticket = parkingBoy.park(toyota);
+    assertSame(toyota, parkingBoy.pick(ticket));
+
+    assertNotNull(parkingBoy.park(toyota));
+  }
 }
