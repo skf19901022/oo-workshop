@@ -43,4 +43,21 @@ class SmartParkingBoyTest {
 
     assertSame(car, parkingLot2.pick(ticket));
   }
+
+  @Test
+  void shouldParkInLot1WhenSmartBoyParkCarGivenParkingLot1And2HasTheSameSpace() {
+    ParkingLot parkingLot1 = new ParkingLot(1);
+    ParkingLot parkingLot2 = new ParkingLot(1);
+
+    SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
+    smartParkingBoy.manage(parkingLot1);
+    smartParkingBoy.manage(parkingLot2);
+
+    Car car = new Car();
+    Ticket ticket = smartParkingBoy.park(car);
+
+    assertNotNull(ticket);
+
+    assertSame(car, parkingLot1.pick(ticket));
+  }
 }
