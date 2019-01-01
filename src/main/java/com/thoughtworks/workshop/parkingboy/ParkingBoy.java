@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ParkingBoy {
 
-  private List<ParkingLot> parkingLots;
+  protected List<ParkingLot> parkingLots;
 
   public ParkingBoy() {
     parkingLots = new ArrayList<>();
@@ -31,7 +31,7 @@ public class ParkingBoy {
 
   public Car pick(Ticket ticket) {
     for (ParkingLot parkingLot : parkingLots) {
-      if (parkingLot.searchCarByTicket(ticket)) {
+      if (parkingLot.contains(ticket)) {
         return parkingLot.pick(ticket);
       }
     }

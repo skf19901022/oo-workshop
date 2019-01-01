@@ -36,7 +36,7 @@ public class ParkingLot {
     return totalSpace > parkedCars.size();
   }
 
-  public boolean searchCarByTicket(Ticket ticket) {
+  public boolean contains(Ticket ticket) {
     return parkedCars.containsKey(ticket);
   }
 }
