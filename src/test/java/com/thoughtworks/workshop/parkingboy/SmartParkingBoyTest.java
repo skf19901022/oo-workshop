@@ -80,4 +80,19 @@ class SmartParkingBoyTest {
     Car porsche = new Car();
     assertThrows(ParkingLotIsFullException.class, () -> smartParkingBoy.park(porsche));
   }
+
+  @Test
+  void shouldReturnCarWhenSmartBoyPickCarGivenAValidTicket() {
+    ParkingLot parkingLot1 = new ParkingLot(1);
+    ParkingLot parkingLot2 = new ParkingLot(1);
+
+    SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
+    smartParkingBoy.manage(parkingLot1);
+    smartParkingBoy.manage(parkingLot2);
+
+    Car toyato = new Car();
+    Ticket ticket = smartParkingBoy.park(toyato);
+
+    assertSame(toyato, smartParkingBoy.pick(ticket));
+  }
 }
