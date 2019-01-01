@@ -39,4 +39,8 @@ public class ParkingLot {
   public boolean contains(Ticket ticket) {
     return parkedCars.containsKey(ticket);
   }
+
+  public int availableSpace(){
+    return totalSpace - parkedCars.size();
+  }
 }

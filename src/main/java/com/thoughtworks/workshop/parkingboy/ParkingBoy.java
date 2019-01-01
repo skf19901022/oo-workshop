@@ -3,18 +3,9 @@ package com.thoughtworks.workshop.parkingboy;
 import com.thoughtworks.workshop.parkinglot.Car;
 import com.thoughtworks.workshop.parkinglot.ParkingLot;
 import com.thoughtworks.workshop.parkinglot.Ticket;
-import com.thoughtworks.workshop.parkinglot.exception.InvalidTicketException;
 import com.thoughtworks.workshop.parkinglot.exception.ParkingLotIsFullException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class ParkingBoy {
-
-  protected List<ParkingLot> parkingLots;
-
-  public ParkingBoy() {
-    parkingLots = new ArrayList<>();
-  }
+public class ParkingBoy extends BasicBoy {
 
   public Ticket park(Car car) {
     for (ParkingLot parkingLot : parkingLots) {
@@ -25,16 +16,4 @@ public class ParkingBoy {
     throw new ParkingLotIsFullException();
   }
 
-  public void manage(ParkingLot parkingLot) {
-    parkingLots.add(parkingLot);
-  }
-
-  public Car pick(Ticket ticket) {
-    for (ParkingLot parkingLot : parkingLots) {
-      if (parkingLot.contains(ticket)) {
-        return parkingLot.pick(ticket);
-      }
-    }
-    throw new InvalidTicketException();
-  }
 }
